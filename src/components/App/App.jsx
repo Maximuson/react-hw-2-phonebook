@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { ContactForm } from '../ContactForm/ContactForm';
+import ContactForm from '../ContactForm/ContactForm';
 import Section from '../Section/Section';
-import uuid from 'uuid';
+
 import { ContactList } from '../ContactList/ContactList';
 import ContactsFilter from '../ContactsFilter/ContactsFilter';
 
@@ -13,15 +13,7 @@ export default class App extends Component {
       { id: 'id-3', name: 'Eden Clements', number: '645-17-79' },
       { id: 'id-4', name: 'Annie Copeland', number: '227-91-26' },
     ],
-    name: '',
-    number: '',
     filter: '',
-  };
-
-  handleInput = e => {
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
   };
 
   filterContacts = (contacts, filter) => {
@@ -29,19 +21,22 @@ export default class App extends Component {
       return contact.name.toLowerCase().includes(filter.toLowerCase());
     });
   };
-
-  handleSubmit = e => {
+  handleInput = e => {
+    this.setState({
+      [e.target.name]: e.target.value,
+    });
+  };
+  handleSubmit = (e, contact) => {
     e.preventDefault();
+    if (
+      this.state.contacts.findIndex(item => item.name === contact.name) !== -1
+    ) {
+      alert('contact exist in your book');
+      return false;
+    }
     this.setState(state => {
       return {
-        contacts: [
-          ...state.contacts,
-          {
-            id: uuid(),
-            name: this.state.name,
-            number: this.state.number,
-          },
-        ],
+        contacts: [...state.contacts, contact],
         name: '',
         number: '',
         filter: '',
@@ -51,7 +46,6 @@ export default class App extends Component {
 
   handleDelete = id => {
     this.setState(ps => {
-      console.log(ps);
       const filtered = ps.contacts.filter(item => {
         return item.id !== id;
       });
