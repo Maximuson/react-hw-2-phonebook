@@ -46,10 +46,9 @@ export default class App extends Component {
 
   handleDelete = id => {
     this.setState(ps => {
-      const filtered = ps.contacts.filter(item => {
-        return item.id !== id;
-      });
-      return { contacts: filtered };
+      return {
+        contacts: ps.contacts.filter(item => item.id !== id),
+      };
     });
   };
 
