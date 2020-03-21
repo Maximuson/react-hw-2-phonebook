@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import ContactForm from '../ContactForm/ContactForm';
 import Section from '../Section/Section';
 
-import { ContactList } from '../ContactList/ContactList';
+import ContactList from '../ContactList/ContactList';
 import ContactsFilter from '../ContactsFilter/ContactsFilter';
 
 export default class App extends Component {
